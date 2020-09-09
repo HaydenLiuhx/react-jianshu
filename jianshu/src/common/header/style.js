@@ -112,7 +112,7 @@ export const Button = styled.div`
     border-radius: 19px;
     border: 1px solid #ec6149;
     color: #f759ab;
-    font-size: 14px;
+    font-size: 15px;
     &.reg {
         color: #ec6149;
     }
