@@ -2,6 +2,7 @@ import * as constants from './constants'
 import { fromJS } from 'immutable'
 const defaultState = fromJS({
     focused: false,
+    list: [],
 })
 
 //固定的输入会有固定的输出,没有副作用,-》纯函数
@@ -18,6 +19,9 @@ export default (state = defaultState, action) => {
         // return {
         //     focused: false
         // }
+    }
+    if (action.type === constants.CHANGE_LIST) {
+        return state.set('list', action.data)
     }
     return state;
 }

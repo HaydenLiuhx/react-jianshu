@@ -76,6 +76,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         handleFocus: () => {
+            dispatch(actionCreators.getList())
             dispatch(actionCreators.searchFocus())
         },
         handleBlur: () => {
