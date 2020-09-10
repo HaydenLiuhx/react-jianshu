@@ -3,7 +3,7 @@ import { HeaderWrapper, Logo, Nav, NavItem, NavSearch, Addition, Button, SearchW
 import { CSSTransition } from 'react-transition-group'
 import { connect } from 'react-redux'
 import { actionCreators } from './store'
-import { SyncOutlined } from '@ant-design/icons';
+
 class Header extends Component {
     getListArea = () => {
         const { focused, list, page, handleMouseEnter, handleMouseLeave, mouseIn, handleChangePage, totalPage } = this.props
@@ -21,8 +21,8 @@ class Header extends Component {
                 <SearchInfo onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
                     <SearchInfoTitle>
                         Popular Searches
-                        <SearchInfoSwitch onClick={() => {handleChangePage(page, totalPage)}}>
-                            <SyncOutlined spin={true} />
+                        <SearchInfoSwitch onClick={() => {handleChangePage(page, totalPage, this.spinIcon)}}>
+                            <i ref={(icon) => {this.spinIcon=icon}} className="iconfont spin">&#xebfe;</i>
                             Change
                         </SearchInfoSwitch>
                     </SearchInfoTitle>
@@ -36,7 +36,7 @@ class Header extends Component {
         }
     }
     render() {
-        const { focused, handleFocus, handleBlur } = this.props
+        const { focused, handleFocus, handleBlur, list } = this.props
         return (
             <HeaderWrapper>
                 <Logo href='/' />
@@ -51,11 +51,11 @@ class Header extends Component {
                         >
                             <NavSearch 
                                 className={focused?'focused':''}
-                                onFocus={handleFocus}
+                                onFocus={() => handleFocus(list)}
                                 onBlur={handleBlur}
                             />
                         </CSSTransition>
-                            <i className={focused?'focused iconfont':'iconfont'}>&#xe611;</i>
+                            <i className={focused?'focused iconfont zoom':'iconfont zoom'}>&#xe611;</i>
                             {this.getListArea()}
                     </SearchWrapper>
                     <NavItem className='right'>
@@ -86,8 +86,10 @@ const mapStateToProps = (state) => {
 }
 const mapDispatchToProps = (dispatch) => {
     return {
-        handleFocus: () => {
-            dispatch(actionCreators.getList())
+        handleFocus: (list) => {
+            if (!list.size) {
+                dispatch(actionCreators.getList())
+            }
             dispatch(actionCreators.searchFocus())
         },
         handleBlur: () => {
@@ -99,7 +101,15 @@ const mapDispatchToProps = (dispatch) => {
         handleMouseLeave: () => {
             dispatch(actionCreators.mouseLeave())
         },
-        handleChangePage: (page, totalPage) => {
+        handleChangePage: (page, totalPage, spin) => {
+            //spin.style.transform = 'rotate(360deg)'
+            let originAngle = spin.style.transform.replace(/[^0-9]/ig, '');
+            if (originAngle) {
+                originAngle = parseInt(originAngle, 10);
+            } else {
+                originAngle = 0
+            }
+            spin.style.transform = 'rotate('+(originAngle+360)+'deg)'
             if (page < totalPage) {
                 dispatch(actionCreators.changePage(page + 1))
             } else {
