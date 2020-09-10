@@ -3,25 +3,31 @@ import { HeaderWrapper, Logo, Nav, NavItem, NavSearch, Addition, Button, SearchW
 import { CSSTransition } from 'react-transition-group'
 import { connect } from 'react-redux'
 import { actionCreators } from './store'
-
+import { SyncOutlined } from '@ant-design/icons';
 class Header extends Component {
-    getListArea = (show) => {
-        if (show) {
+    getListArea = () => {
+        const { focused, list, page, handleMouseEnter, handleMouseLeave, mouseIn, handleChangePage, totalPage } = this.props
+        const pageList = []
+        const newList = list.toJS()
+        if (newList.length) {
+            for (let i = (page-1)*10; i<page*10; i++){
+                pageList.push(
+                    <SearchInfoItem key={newList[i]}>{newList[i]}</SearchInfoItem>
+                )
+            }
+        }
+        if (focused || mouseIn) {
             return(
-                <SearchInfo>
+                <SearchInfo onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
                     <SearchInfoTitle>
                         Popular Searches
-                        <SearchInfoSwitch>Change</SearchInfoSwitch>
+                        <SearchInfoSwitch onClick={() => {handleChangePage(page, totalPage)}}>
+                            <SyncOutlined spin={true} />
+                            Change
+                        </SearchInfoSwitch>
                     </SearchInfoTitle>
                     <SearchInfoList>
-                        <SearchInfoItem>Education</SearchInfoItem>
-                        <SearchInfoItem>Education</SearchInfoItem>
-                        <SearchInfoItem>Education</SearchInfoItem>
-                        <SearchInfoItem>Education</SearchInfoItem>
-                        <SearchInfoItem>Education</SearchInfoItem>
-                        <SearchInfoItem>Education</SearchInfoItem>
-                        <SearchInfoItem>Education</SearchInfoItem>
-                        <SearchInfoItem>Education</SearchInfoItem>
+                        {pageList}
                     </SearchInfoList>
                 </SearchInfo>
             )
@@ -30,6 +36,7 @@ class Header extends Component {
         }
     }
     render() {
+        const { focused, handleFocus, handleBlur } = this.props
         return (
             <HeaderWrapper>
                 <Logo href='/' />
@@ -38,18 +45,18 @@ class Header extends Component {
                     <NavItem className='left'>Download</NavItem>
                     <SearchWrapper>
                         <CSSTransition
-                            in={this.props.focused}
+                            in={focused}
                             timeout={400}
                             classNames="slide"
                         >
                             <NavSearch 
-                                className={this.props.focused?'focused':''}
-                                onFocus={this.props.handleFocus}
-                                onBlur={this.props.handleBlur}
+                                className={focused?'focused':''}
+                                onFocus={handleFocus}
+                                onBlur={handleBlur}
                             />
                         </CSSTransition>
-                            <i className={this.props.focused?'focused iconfont':'iconfont'}>&#xe611;</i>
-                            {this.getListArea(this.props.focused)}
+                            <i className={focused?'focused iconfont':'iconfont'}>&#xe611;</i>
+                            {this.getListArea()}
                     </SearchWrapper>
                     <NavItem className='right'>
                         <i className="iconfont">&#xe636;</i>
@@ -70,7 +77,11 @@ const mapStateToProps = (state) => {
         // focused: state.header.focused
         //focused: state.header.get('focused')
         //focused: state.get('header').get('focused')
-        focused: state.getIn(['header','focused'])
+        focused: state.getIn(['header','focused']),
+        list: state.getIn(['header','list']),
+        page: state.getIn(['header','page']),
+        mouseIn: state.getIn(['header','mouseIn']),
+        totalPage: state.getIn(['header','totalPage']),
     }
 }
 const mapDispatchToProps = (dispatch) => {
@@ -81,6 +92,19 @@ const mapDispatchToProps = (dispatch) => {
         },
         handleBlur: () => {
             dispatch(actionCreators.searchBlur())
+        },
+        handleMouseEnter: () => {
+            dispatch(actionCreators.mouseEnter())
+        },
+        handleMouseLeave: () => {
+            dispatch(actionCreators.mouseLeave())
+        },
+        handleChangePage: (page, totalPage) => {
+            if (page < totalPage) {
+                dispatch(actionCreators.changePage(page + 1))
+            } else {
+                dispatch(actionCreators.changePage(1))
+            }
         }
     }
 }
