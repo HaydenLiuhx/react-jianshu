@@ -3,7 +3,7 @@ import { HeaderWrapper, Logo, Nav, NavItem, NavSearch, Addition, Button, SearchW
 import { CSSTransition } from 'react-transition-group'
 import { connect } from 'react-redux'
 import { actionCreators } from './store'
-
+import { Link } from 'react-router-dom'
 class Header extends Component {
     getListArea = () => {
         const { focused, list, page, handleMouseEnter, handleMouseLeave, mouseIn, handleChangePage, totalPage } = this.props
@@ -39,7 +39,9 @@ class Header extends Component {
         const { focused, handleFocus, handleBlur, list } = this.props
         return (
             <HeaderWrapper>
-                <Logo href='/' />
+                <Link to='/'>
+                    <Logo />
+                </Link>
                 <Nav>
                     <NavItem className='left active'>Home</NavItem>
                     <NavItem className='left'>Download</NavItem>

@@ -104,3 +104,15 @@ export const WriterWrapper = styled.div`
 export const WriterItem = styled.div`
     margin-bottom: 10px;
 `
+export const BackTop = styled.div`
+    position: fixed;
+    right: 100px;
+    bottom: 100px;
+    width: 90px;
+    height: 60px;
+    line-height: 30px;
+    text-align: center;
+    border: 1px solid #ccc;
+    font-size: 12px;
+    padding-top: 30px;
+`

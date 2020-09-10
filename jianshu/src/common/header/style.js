@@ -8,7 +8,7 @@ export const HeaderWrapper = styled.div`
     background-color: #000000e0;
     font-family: sans-serif;
 `;
-export const Logo = styled.a`
+export const Logo = styled.div`
     position: absolute;
     top: 0;
     left: 10px;
