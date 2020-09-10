@@ -5,17 +5,22 @@ class Recommend extends Component {
         return (
             <RecommendWrapper>
                 <RecommendItem style={{backgroundColor: '#ffa39e'}}>
-                <h4>Lorem Ipsum</h4>
+                <h4 style={{paddingTop:'15px', paddingLeft:'20px'}}>Lorem Ipsum</h4>
                 </RecommendItem>
-                <RecommendItem style={{backgroundColor: '#ff4d4f'}}>
+                <RecommendItem style={{backgroundColor: '#cf1322'}}>
+                <h4 style={{paddingTop:'15px', paddingLeft:'20px', color:'white'}}>Lorem Ipsum</h4>
                 </RecommendItem>
                 <RecommendItem style={{backgroundColor: '#ffbb96'}}>
+                <h4 style={{paddingTop:'15px', paddingLeft:'20px'}}>Lorem Ipsum</h4>
                 </RecommendItem>
-                <RecommendItem style={{backgroundColor: '#ff7a45'}}>
+                <RecommendItem style={{backgroundColor: '#d4380d'}}>
+                <h4 style={{paddingTop:'15px', paddingLeft:'20px', color:'white'}}>Lorem Ipsum</h4>
                 </RecommendItem>
                 <RecommendItem style={{backgroundColor: '#ffd591'}}>
+                <h4 style={{paddingTop:'15px', paddingLeft:'20px'}}>Lorem Ipsum</h4>
                 </RecommendItem>
-                <RecommendItem style={{backgroundColor: '#ffa940'}}>
+                <RecommendItem style={{backgroundColor: '#d46b08'}}>
+                <h4 style={{paddingTop:'15px', paddingLeft:'20px', color:'white'}}>Lorem Ipsum</h4>
                 </RecommendItem>
             </RecommendWrapper>
         )

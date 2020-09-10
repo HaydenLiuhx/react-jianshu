@@ -83,13 +83,13 @@ export const RecommendItem = styled.div`
     margin-bottom: 10px;
 `
 export const WriterWrapper = styled.div`
-    margin: 30px 0;
-    width: 280px;
+    border: 1px solid #dcdcdc;
+    border-radius: 3px;
+    height: 300px;
+    width: 278px;
+    line-height: 300px;
+    text-align: center;
 `
 export const WriterItem = styled.div`
-    width: 280px;
-    height: 50px;
-    background-size: contain;
-    border-radius: 8px;
     margin-bottom: 10px;
 `

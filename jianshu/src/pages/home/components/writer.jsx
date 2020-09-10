@@ -5,7 +5,7 @@ class Writer extends Component {
         return (
             <WriterWrapper>
                 <WriterItem>
-
+                    This is Writer Section.
                 </WriterItem>
             </WriterWrapper>
         )
