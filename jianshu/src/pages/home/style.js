@@ -71,6 +71,17 @@ export const ListInfo = styled.div`
         font-size: 11px;
     }
 `
+export const LoadMore = styled.div`
+   width: 100%;
+   height: 40px;
+   line-height: 40px;
+   background: #ec6149;
+   text-align: center;
+   border-radius: 20px;
+   color: #fff;
+   margin: 30px 0;
+   cursor: pointer;
+`
 export const RecommendWrapper = styled.div`
     margin: 30px 0;
     width: 280px;
