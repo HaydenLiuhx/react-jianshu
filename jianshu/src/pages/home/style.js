@@ -23,7 +23,7 @@ export const TopicWrapper = styled.div`
     padding: 20px 0 10px 0;
     overflow: hidden;
     margin-left: -10px;
-    border-bottom: 1px solid #dcdcdc
+    border-bottom: 1px solid #dcdcdc;
 `
 export const TopicItem = styled.div`
     margin-left: 18px;
