@@ -4,6 +4,7 @@ import { CSSTransition } from 'react-transition-group'
 import { connect } from 'react-redux'
 import { actionCreators } from './store'
 import { Link } from 'react-router-dom'
+import { actionCreators as loginActionCreators } from '../../pages/login/store' 
 class Header extends Component {
     getListArea = () => {
         const { focused, list, page, handleMouseEnter, handleMouseLeave, mouseIn, handleChangePage, totalPage } = this.props
@@ -36,7 +37,7 @@ class Header extends Component {
         }
     }
     render() {
-        const { focused, handleFocus, handleBlur, list } = this.props
+        const { focused, handleFocus, handleBlur, list, login, logout } = this.props
         return (
             <HeaderWrapper>
                 <Link to='/'>
@@ -63,11 +64,16 @@ class Header extends Component {
                     <NavItem className='right'>
                         <i className="iconfont">&#xe636;</i>
                     </NavItem>
-                    <NavItem className='right'>Login</NavItem>
+                    {
+                        login ? <NavItem className='right' onClick={logout}>Logout</NavItem> : 
+                        <Link to='/login'><NavItem className='right'>Login</NavItem></Link>
+                    }
                 </Nav>
                 <Addition>
                     <Button className='reg'>Register</Button>
+                    <Link to="/write">
                     <Button className='writing'><i className="iconfont">&#xe71a;</i>Writing</Button>
+                    </Link>
                 </Addition>
             </HeaderWrapper>
         )
@@ -84,6 +90,7 @@ const mapStateToProps = (state) => {
         page: state.getIn(['header','page']),
         mouseIn: state.getIn(['header','mouseIn']),
         totalPage: state.getIn(['header','totalPage']),
+        login: state.getIn(['login', 'login']),
     }
 }
 const mapDispatchToProps = (dispatch) => {
@@ -117,6 +124,9 @@ const mapDispatchToProps = (dispatch) => {
             } else {
                 dispatch(actionCreators.changePage(1))
             }
+        },
+        logout: () => {
+            dispatch(loginActionCreators.logout())
         }
     }
 }

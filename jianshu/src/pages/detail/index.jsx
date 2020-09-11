@@ -1,8 +1,11 @@
 import React, { Component } from 'react'
 import { DetailWrapper, Header, Content } from './style'
-import detailImg from '../../static/detail.png'
 import { connect } from 'react-redux'
+import { actionCreators } from './store'
 class Detail extends Component {
+    componentDidMount = () => {
+        this.props.getDetail(this.props.match.params.id)
+    }
     render() {
         return (
             <DetailWrapper>
@@ -18,4 +21,9 @@ const mapStateToProps = (state) => ({
     title: state.getIn(["detail", "title"]),
     content: state.getIn(["detail", "content"])
 })
-export default connect(mapStateToProps,({}))(Detail);
+const mapDispatchToProps = (dispatch) => ({
+    getDetail: (id) => {
+        dispatch(actionCreators.getDetail(id))
+    }
+})
+export default connect(mapStateToProps,mapDispatchToProps)(Detail);

@@ -43,6 +43,7 @@ export const NavItem = styled.div`
     }
 `;
 export const SearchWrapper = styled.div`
+    z-index: 1;
     margin-left:40px;
     float:left;
     box-sizing: border-box;
